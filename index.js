@@ -16,18 +16,23 @@ app.use((req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Ruta para la raíz
+app.get('/', (req, res) => {
+    res.send('Bienvenido al servicio Webhook');
+});
+
 app.get('/webhook', (req, res) => {
     res.send({ message: 'UBER Eats Webhook' });
+});
+
+app.post('/webhook', (req, res) => {
+    var data = req.body;
+    console.log('Inicio del Json recibido');
+    console.log(data);
+    console.log('Fin del Json recibido');
+    res.sendStatus(200);
 });
 
 app.listen(port, () => {
     console.log(`Servicio corriendo en el puerto ${port}`);
 });
-
-app.post('/webhook',(req, res)=>{
-    var data = req.body
-    console.log('Inicio del Json recibido')
-    console.log(data)
-    console.log('Fin del Json recibido')
-    res.sendStatus(200);
-})
